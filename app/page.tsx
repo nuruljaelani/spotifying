@@ -2,9 +2,12 @@ import { auth } from "@/auth";
 import LoginButton from "@/components/LoginButton";
 import { redirect } from "next/navigation";
 import { Music2, BarChart3, Clock } from "lucide-react";
+import { headers } from "next/headers";
 
 export default async function Home() {
-  const session = await auth();
+  const session = await auth.api.getSession({
+    headers: await headers()
+  });
 
   if (session) {
     redirect("/dashboard");
